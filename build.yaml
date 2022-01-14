@@ -1,0 +1,41 @@
+targets:
+  $default:
+    builders:
+      # Don't clean up workshop examples, they need to be served.
+      build_web_compilers:dart_source_cleanup:
+        generate_for:
+          exclude:
+            - web/example/workshops/**.dart
+
+      build_web_compilers|entrypoint:
+        # Don't compile workshop examples.
+        generate_for:
+          exclude:
+          - web/example/workshops/**.dart
+        options:
+          dart2js_args:
+          - --minify
+          - --fast-startup
+          - -DSERVER_URL=https://dart-service-2-wq5r2rbjma-uc.a.run.app/
+          # - -DSERVER_URL=https://stable.api.dartpad.dev/
+          - -DSTABLE_SERVER_URL=https://dart-service-2-wq5r2rbjma-uc.a.run.app/
+          # - -DSTABLE_SERVER_URL=https://stable.api.dartpad.dev/
+          - -DBETA_SERVER_URL=https://dart-service-2-wq5r2rbjma-uc.a.run.app/
+          - -DDEV_SERVER_URL=https://dart-service-2-wq5r2rbjma-uc.a.run.app/
+          - -DOLD_SERVER_URL=https://dart-service-2-wq5r2rbjma-uc.a.run.app/
+
+      json_serializable:
+        # Ignore workshop samples.
+        generate_for:
+          exclude:
+          - web/example/workshops/**.dart
+
+global_options:
+  build_web_compilers:ddc:
+    options:
+      environment:
+        SERVER_URL: https://stable.api.dartpad.dev/
+        STABLE_SERVER_URL: https://stable.api.dartpad.dev/
+        BETA_SERVER_URL: https://beta.api.dartpad.dev/
+        DEV_SERVER_URL: https://dev.api.dartpad.dev/
+        OLD_SERVER_URL: https://old.api.dartpad.dev/
